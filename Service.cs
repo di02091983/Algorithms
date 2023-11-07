@@ -99,6 +99,29 @@
             nums = result.ToArray();
         }
 
+        public static int[] QuickSort(int[] nums)
+        {
+            if (nums.Length <= 1) return nums;
+
+            List<int> less = new();
+            List<int> greater = new();
+            for(int i = 1; i < nums.Length; ++i)
+            {
+                if (nums[i] > nums[0]) 
+                    greater.Add(nums[i]);
+                else 
+                    less.Add(nums[i]);
+            }
+            var lessSorted = QuickSort(less.ToArray());            
+            var greaterSorted = QuickSort(greater.ToArray());
+
+            var result = new List<int>();
+            result.AddRange(lessSorted);
+            result.Add(nums[0]);
+            result.AddRange(greaterSorted);
+            return result.ToArray();
+        }
+
         public static bool BFSSearchBool(TreeNode root, int target)
         {
             Queue<TreeNode> nearNodes = new Queue<TreeNode>();
