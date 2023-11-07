@@ -8,20 +8,20 @@ namespace TestUnit
         public void TestBFSSearchBool()
         {
             TreeNode root = new() { 
-                value = 1, 
+                Value = 1, 
                 Left = null,
                 Right = new() { 
-                    value = 2,
+                    Value = 2,
                     Left = new() { 
-                        value = 1,
-                        Left = new() { value = 1 , Left = null, Right = null },
-                        Right = new() { value = 2, Left = null, Right = null }
+                        Value = 1,
+                        Left = new() { Value = 1 , Left = null, Right = null },
+                        Right = new() { Value = 2, Left = null, Right = null }
                     },
                     Right = new()
                     {
-                        value = 3,
-                        Left = new() { value = 4, Left = null, Right = null },
-                        Right = new() { value = 5, Left = null, Right = null }
+                        Value = 3,
+                        Left = new() { Value = 4, Left = null, Right = null },
+                        Right = new() { Value = 5, Left = null, Right = null }
                     }
                 },
             };
@@ -34,27 +34,27 @@ namespace TestUnit
         {
             TreeNode root = new()
             {
-                value = 1,
+                Value = 1,
                 Left = null,
                 Right = new()
                 {
-                    value = 2,
+                    Value = 2,
                     Left = new()
                     {
-                        value = 1,
-                        Left = new() { value = 1, Left = null, Right = null },
-                        Right = new() { value = 2, Left = null, Right = null }
+                        Value = 1,
+                        Left = new() { Value = 1, Left = null, Right = null },
+                        Right = new() { Value = 2, Left = null, Right = null }
                     },
                     Right = new()
                     {
-                        value = 3,
-                        Left = new() { value = 4, Left = null, Right = null },
-                        Right = new() { value = 5, Left = null, Right = null }
+                        Value = 3,
+                        Left = new() { Value = 4, Left = null, Right = null },
+                        Right = new() { Value = 5, Left = null, Right = null }
                     }
                 },
             };
 
-            Assert.True(Service.BFSSearchNode(root, 3)?.value == 3);
+            Assert.True(Service.BFSSearchNode(root, 3)?.Value == 3);
         }
     }
 }

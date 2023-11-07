@@ -6,11 +6,13 @@
         { 
             Left = null; 
             Right = null;
-            value = 0;
+            Value = 0;
+            Name = "";
         }
         public TreeNode? Left {  get; set; }
         public TreeNode? Right { get; set; }
-        public int value;
+        public int Value { get; set; }
+        public string Name { get; set; }
     }
 
     public class Service
@@ -106,7 +108,7 @@
             while(nearNodes.Count > 0)
             {
                 var node = nearNodes.Dequeue();
-                if (node.value == target) return true;
+                if (node.Value == target) return true;
                 else
                 {
                     if(node.Left != null) nearNodes.Enqueue(node.Left);
@@ -125,7 +127,7 @@
             while (nearNodes.Count > 0)
             {
                 var node = nearNodes.Dequeue();
-                if (node.value == target) return node;
+                if (node.Value == target) return node;
                 else
                 {
                     if (node.Left != null) nearNodes.Enqueue(node.Left);
@@ -133,6 +135,88 @@
                 }
             }
             return null;
+        }
+
+        public static int Deikstra()
+        {
+            var graph = new Dictionary<string, Dictionary<string, int>>();
+
+            graph["start"] = new Dictionary<string, int>();
+            graph["start"]["a"] = 1;
+            graph["start"]["b"] = 2;
+            graph["start"]["c"] = 3;
+
+            graph["a"] = new Dictionary<string, int>();
+            graph["a"]["b"] = 4;
+            graph["a"]["e"] = 7;
+
+            graph["b"] = new Dictionary<string, int>();
+            graph["b"]["e"] = 9;
+
+            graph["c"] = new Dictionary<string, int>();
+            graph["c"]["d"] = 3;
+
+            graph["e"] = new Dictionary<string, int>();
+            graph["e"]["end"] = 2;
+
+            graph["d"] = new Dictionary<string, int>();
+            graph["d"]["end"] = 5;
+
+            graph["end"] = new Dictionary<string, int>();
+
+            var costs = new Dictionary<string, int>();
+
+            costs["a"] = 1;
+            costs["b"] = 2;
+            costs["c"] = 3;
+            costs["d"] = int.MaxValue;
+            costs["e"] = int.MaxValue;
+            costs["end"] = int.MaxValue;
+
+            var parents = new Dictionary<string, string>();
+            parents["a"] = "start";
+            parents["b"] = "start";
+            parents["c"] = "start";
+            parents["end"] = "";
+
+            HashSet<string> processed = new HashSet<string>();
+
+            var node = FindLowestCostNode(costs, processed);
+
+            while(node != "")
+            {
+                var cost = costs[node];
+                var neighbors = graph[node];
+                foreach(var neighbor in neighbors)
+                {
+                    var new_cost = cost + neighbor.Value;
+
+                    if (costs[neighbor.Key] > new_cost)
+                    {
+                        costs[neighbor.Key] = new_cost;
+                        parents[neighbor.Key] = neighbor.Key;
+                    }
+                }
+                processed.Add(node);
+                node = FindLowestCostNode (costs, processed);
+            }
+            return costs["end"];
+        }
+
+        public static string FindLowestCostNode(Dictionary<string,int> costs, HashSet<string> processed)
+        {
+            string minNodeName = "";
+            int minCost = int.MaxValue;
+
+            foreach(var node in costs)
+            {
+                if(node.Value < minCost && !processed.Contains(node.Key))
+                {
+                    minCost = node.Value;
+                    minNodeName = node.Key;
+                }                
+            }
+            return minNodeName;
         }
     }
 }
