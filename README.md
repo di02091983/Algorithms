@@ -5,3 +5,4 @@
 * Поиск в ширину (BFSSearchBool, BFSSearchNode)
 * Алгоритм Дейкстры (Deikstra)
 * Решение задачи о рюкзаке полным перебором всех множеств (FindMaxSumFull)
+* Алгоритм генерации треугольника Паскаля (PascalTriangle)
