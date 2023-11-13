@@ -1,4 +1,6 @@
-﻿namespace Algorithms
+﻿using System.Globalization;
+
+namespace Algorithms
 {
     public class TreeNode
     {
@@ -240,6 +242,53 @@
                 }                
             }
             return minNodeName;
+        }
+
+        public static int FindMaxSumFull(int[][] goods, int volume)
+        {
+            int sum = 0, max = 0, weight = 0;
+
+            int[] indArr = new int[goods.Length];
+            HashSet<int> used = new();
+            do
+            {
+                used.Clear();
+                sum = 0;
+                weight = 0;
+                for (int i = 0; i < indArr.Length; ++i)
+                {
+                    if (used.Contains(indArr[i])) continue;
+
+                    if (weight + goods[indArr[i]][0] > volume) break;
+
+                    sum += goods[indArr[i]][1];
+                    weight += goods[indArr[i]][0];
+
+                    used.Add(indArr[i]);
+                }
+
+                if (max < sum) max = sum;
+            }
+            while (GenerateIndexes(goods.Length, indArr));
+
+            return max;
+        }
+
+        public static bool GenerateIndexes(int baseNumber, int[] indArray)
+        {
+            int i = indArray.Length - 1;
+
+            while(i >= 0 && indArray[i] == baseNumber - 1)
+            {
+                indArray[i] = 0;
+                i--;
+            }
+
+            if (i < 0) return false;
+
+            indArray[i] += 1;
+
+            return true;
         }
     }
 }
