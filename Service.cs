@@ -290,5 +290,35 @@ namespace Algorithms
 
             return true;
         }
+
+        public static IList<IList<int>> PascalTriangle(int numRows)
+        {
+            if (numRows == 1) return new List<IList<int>>() { new List<int>() { 1 } };
+
+            if (numRows == 2) return new List<IList<int>>() { new List<int>() { 1 }, new List<int>() { 1, 1 } };
+
+            List<IList<int>> triangle = new List<IList<int>>() { new List<int>() { 1 }, new List<int>() { 1, 1 } };
+
+            for (int i = 2; i < numRows; ++i)
+            {
+                var row = new List<int>();
+
+                for (int j = 0; j <= i; ++j)
+                {
+                    if (j == 0 || j == i)
+                    {
+                        row.Add(1);
+                    }
+                    else
+                    {
+                        row.Add(triangle[i - 1][j - 1] + triangle[i - 1][j]);
+                    }
+                }
+
+                triangle.Add(row);
+            }
+
+            return triangle;
+        }
     }
 }
